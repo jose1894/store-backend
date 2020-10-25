@@ -47,7 +47,7 @@ class MarcaController extends Controller
      */
     public function show(Marca $marca)
     {
-        //
+        return response()->json(['error'=>'Unauthorised'], 200);
     }
 
     /**
