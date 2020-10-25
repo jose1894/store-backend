@@ -30,5 +30,7 @@ Route::group([
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+        Route::resource('marca', 'marca\MarcaController');
+        Route::resource('modelo', 'modelo\ModeloController');
     });
 });
