@@ -32,5 +32,6 @@ Route::group([
         Route::get('user', 'AuthController@user');
         Route::resource('marca', 'marca\MarcaController');
         Route::resource('modelo', 'modelo\ModeloController');
+        Route::resource('categorias','api\v1\CategoriasController');
     });
 });
