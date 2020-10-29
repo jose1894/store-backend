@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModeloTable extends Migration
+class CreateModelosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateModeloTable extends Migration
      */
     public function up()
     {
-        Schema::create('modelo', function (Blueprint $table) {
-            $table->id();
+        Schema::create('modelos', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('description');
             $table->unsignedInteger('marca_id');
             $table->integer('created_by')->nullable()->index('created_by_idx');
@@ -30,6 +30,6 @@ class CreateModeloTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modelo');
+        Schema::dropIfExists('modelos');
     }
 }
