@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\marca;
+namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Marca;
