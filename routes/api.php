@@ -22,7 +22,7 @@ Route::group([
     'prefix' => 'auth',
     'namespace' => 'App\Http\Controllers',
 ], function () {
-    Route::get('login', 'AuthController@login');
+    Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signUp');
 
     Route::group([
