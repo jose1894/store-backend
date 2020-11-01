@@ -7,6 +7,7 @@ use App\Models\Categorias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 
 
 class CategoriasController extends Controller
@@ -30,15 +31,15 @@ class CategoriasController extends Controller
 		// los registros obtenidos de Categorias::all()
 		// El segundo parámetro son los minutos.
 		$categorias = Cache::remember('cachecategorias',15/60, function() {
-			return Categorias::simplePaginate(10);  // Paginamos cada 10 elementos.
+			return Categorias::simplePaginate(5);  // Paginamos cada 10 elementos.
         });
         
 		return response()->json([
-                                    'status'=>'ok', 
-                                    'siguiente'=>$categorias->nextPageUrl(),
-                                    'anterior'=>$categorias->previousPageUrl(),
-                                    'data'=>$categorias->items()
-                                ], 200);
+            'status'=>'ok',
+            'siguiente'=>$categorias->nextPageUrl(),
+            'anterior'=>$categorias->previousPageUrl(),
+            'data'=>$categorias->items()
+        ], 200);
     }
 
     /**
@@ -59,20 +60,25 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        if (empty($request->input('descripcion'))) {
-            return response()->json([
-                                        'errors'=> [
-                                                    ['code'=>422,'message'=>'Faltan datos necesarios para procesar el registro.']
-                                                ]
-                                    ], 422);
-        }
-
-		$categoria = Categorias::create($request->all());
-
-		// Devolvemos la respuesta Http 201 (Created) + los datos de la nueva categoria + una cabecera de Location + cabecera JSON
-		return Response::make(json_encode(['data'=>$categoria]),201)
+        if(Auth::attempt(['descripcion' => request('descripcion')])){
+            $input = $request->all();
+            $categoria = Categorias::create($input);
+            return Response::make(json_encode(['data'=>$categoria]),201)
                         ->header('Location',$_SERVER['URI_REQUEST'].$categoria->id)
                         ->header('Content-Type','application/json');
+        } else {
+            return response()->json(['error'=>'Faltan datos necesarios para procesar el registro.'], 401);
+        }
+        /*if (empty($request->input('descripcion'))) {
+            return response()->json(
+                ['errors'=> [
+                    ['code'=>422,'message'=>'Faltan datos necesarios para procesar el registro.']]
+                ], 422);
+        }
+		$categoria = Categorias::create($request->all());*/
+
+		// Devolvemos la respuesta Http 201 (Created) + los datos de la nueva categoria + una cabecera de Location + cabecera JSON
+		
     }
 
     /**
