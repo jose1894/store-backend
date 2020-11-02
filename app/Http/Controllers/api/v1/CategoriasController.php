@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoriasController extends Controller
 {
-    public function __construct()
-	{
-		$this->middleware('auth.basic',['only'=>['store','update','destroy']]);
-	}
+    // public function __construct()
+	// {
+	// 	$this->middleware('auth.basic',['only'=>['store','update','destroy']]);
+	// }
 
     /**
      * Display a listing of the resource.
@@ -60,7 +60,7 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        if(Auth::attempt(['descripcion' => request('descripcion')])){
+        /*if(Auth::attempt(['descripcion' => request('descripcion')])){
             $input = $request->all();
             $categoria = Categorias::create($input);
             return Response::make(json_encode(['data'=>$categoria]),201)
@@ -68,14 +68,16 @@ class CategoriasController extends Controller
                         ->header('Content-Type','application/json');
         } else {
             return response()->json(['error'=>'Faltan datos necesarios para procesar el registro.'], 401);
-        }
-        /*if (empty($request->input('descripcion'))) {
+        }*/
+        if (empty($request->input('descripcion'))) {
             return response()->json(
                 ['errors'=> [
                     ['code'=>422,'message'=>'Faltan datos necesarios para procesar el registro.']]
                 ], 422);
         }
-		$categoria = Categorias::create($request->all());*/
+        $categoria = Categorias::create($request->all());
+        
+        return response()->json([ 'status' => 'ok', 'data'=>$categoria],201);
 
 		// Devolvemos la respuesta Http 201 (Created) + los datos de la nueva categoria + una cabecera de Location + cabecera JSON
 		
