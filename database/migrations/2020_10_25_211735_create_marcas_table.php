@@ -14,11 +14,14 @@ class CreateMarcasTable extends Migration
     public function up()
     {
         Schema::create('marcas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('description');
             $table->integer('created_by')->nullable()->index('created_by_idx');
             $table->integer('updated_by')->nullable()->index('updated_by_idx');
-            $table->timestamps();
+            $table->timestamps();            
+            $table->engine = 'InnoDB';	
+            $table->charset = 'utf8';	
+            $table->collation = 'utf8_general_ci';
         });
     }
 

@@ -15,11 +15,17 @@ class CreateModelosTable extends Migration
     {
         Schema::create('modelos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('description');
-            $table->unsignedInteger('marca_id');
+            $table->string('descripcion');
+            $table->unsignedInteger('marca_id'); 
+            $table->foreign('marca_id')->references('id')->on('marcas')
+                  ->onUpdate('CASCADE')
+                  ->onDelete('RESTRICT');
             $table->integer('created_by')->nullable()->index('created_by_idx');
             $table->integer('updated_by')->nullable()->index('updated_by_idx');
             $table->timestamps();
+            $table->engine = 'InnoDB';	
+            $table->charset = 'utf8';	
+            $table->collation = 'utf8_general_ci';
         });
     }
 

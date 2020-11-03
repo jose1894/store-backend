@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Marca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class MarcaController extends Controller
 {
@@ -15,18 +16,19 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $marcas = Cache::remember('cachemarcas',15/60, function() {
+			return Marca::simplePaginate(20);  // Paginamos cada 20 elementos.
+        });
+        
+		return response()->json([
+            'message' => 'Marcas list',
+            'status'=>'ok',
+            'totalRecords' => sizeOf($marcas->items()),
+            'siguiente'=>$marcas->nextPageUrl(),
+            'anterior'=>$marcas->previousPageUrl(),
+            'data'=>$marcas->items(),
+        ], 200);
+    }    
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +38,17 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (empty($request->input('descripcion'))) {
+            return response()->json([
+                'errors'=> [
+                        ['message'=>'Faltan datos necesarios para procesar el registro.']
+                    ]
+                ], 422);
+        }
+        $categoria = Categorias::create($request->all());
+        
+        return response()->json([ 'status' => 'ok', 'message' => 'Categoria stored successfully!', 'data'=>$categoria],201);
+
     }
 
     /**
