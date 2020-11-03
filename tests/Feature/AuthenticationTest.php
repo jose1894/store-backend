@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
-    function testRequiredFieldsForSignUp()
+    /*function testRequiredFieldsForSignUp()
     {
         $this->json('POST', 'api/auth/signup', ['Accept' => 'application/json'])
             ->assertStatus(401)
@@ -109,5 +109,5 @@ class AuthenticationTest extends TestCase
                 'user', 
                 'token'
             ]);
-    }
+    }*/
 }
