@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Marca;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class MarcaFactory extends Factory
 {
@@ -23,9 +23,9 @@ class MarcaFactory extends Factory
     public function definition()
     {
         return [
-            'description' => $this->faker->sentence, 
-            'created_by' => 1,
-            'updated_by' => 1,
+            'descripcion' => Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

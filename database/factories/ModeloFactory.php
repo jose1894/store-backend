@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Modelo;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ModeloFactory extends Factory
 {
@@ -21,8 +23,12 @@ class ModeloFactory extends Factory
      */
     public function definition()
     {
+        $marca = DB::table('marcas')->select('id')->where('id', '=', '1')->get()->pluck('id')->toArray()[0];
         return [
-            //
+            'descripcion' => Str::random(10),
+            'marca_id' => $marca,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
