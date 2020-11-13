@@ -30,7 +30,7 @@ class CategoriasTest extends TestCase
         $this->json('POST', 'api/v1/categoria', $categoria, ['Content-Type' =>'application/json', 'Accept' => 'application/json'])
         ->assertStatus(201)
         ->assertJson([                
-            'message' => 'Categoria stored successfully!',            
+            'message' => 'Categoria creada exitosamente!',            
         ]);
     }
 

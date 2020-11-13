@@ -55,7 +55,7 @@ class CategoriasController extends Controller
         }
         $categoria = Categorias::create($request->all());
         
-        return response()->json([ 'status' => 'ok', 'message' => 'Categoria stored successfully!', 'data'=>$categoria],201);
+        return response()->json([ 'status' => 'ok', 'message' => 'Categoria creada exitosamente!', 'data'=>$categoria],201);
 
 		// Devolvemos la respuesta Http 201 (Created) + los datos de la nueva categoria + una cabecera de Location + cabecera JSON
 		

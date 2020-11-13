@@ -31,8 +31,8 @@ use Illuminate\Support\Facades\Route;
 //             Route::get('logout', 'AuthController@logout');
 //             Route::get('user', 'AuthController@user');
 //             Route::prefix('v1')->group( function(){
-//                 Route::resource('marca', 'api\v1\MarcaController');
-//                 Route::resource('modelo', 'api\v1\ModeloController');
+//                 Route::resource('marca', 'api\v1\MarcaController', [ 'except' => ['edit','create']]);
+//                 Route::resource('modelo', 'api\v1\ModeloController', [ 'except' => ['edit','create']]);
 //                 Route::resource('categoria','api\v1\CategoriasController', [ 'except' => ['edit','create']]);
 
 //         });

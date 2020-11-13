@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MarcaRequest;
 use App\Models\Marca;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -36,7 +37,7 @@ class MarcaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MarcaRequest $request)
     {
         if (empty($request->input('descripcion'))) {
             return response()->json([
@@ -45,9 +46,9 @@ class MarcaController extends Controller
                     ]
                 ], 422);
         }
-        $categoria = Categorias::create($request->all());
+        $marca = Marca::create($request->all());
         
-        return response()->json([ 'status' => 'ok', 'message' => 'Categoria stored successfully!', 'data'=>$categoria],201);
+        return response()->json([ 'status' => 'ok', 'message' => 'Marca creada exitosamente!', 'data'=>$marca],201);
 
     }
 
@@ -57,20 +58,17 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function show(Marca $marca)
+    public function show($id)
     {
-        return response()->json(['error'=>'Unauthorised'], 200);
-    }
+        $marca = Marca::find($id);
+        
+        if ( empty($marca) ) {
+            return response()->json(['message' => 'Detalle de la Categoria',
+            'status'=>'not found'],404);
+        } 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Marca  $marca
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Marca $marca)
-    {
-        //
+        return response()->json(['message' => 'Detalle de la Categoria',
+        'status'=>'ok','data' => $marca],200);
     }
 
     /**
@@ -80,9 +78,29 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Marca $marca)
+    public function update(MarcaRequest $request)
     {
-        //
+        $marca = Marca::find($request->id);
+        // dd($request);
+        if (empty($marca)) {
+            return response()->json([
+                    'message' => 'Actualizacion de marca',
+                    'status' => 'Not found',
+            ], 404);
+        }
+
+        $flag = $marca->validate($request->rules());
+
+        if ( !empty($flag) ) {
+            return $flag;
+        }
+
+        $marca->flll($request->all());
+        $marca->save();
+
+        return response()->json(['message' => 'Actualizacion de Categoria',
+        'status'=>'ok','data' => $marca],200);
+        
     }
 
     /**
