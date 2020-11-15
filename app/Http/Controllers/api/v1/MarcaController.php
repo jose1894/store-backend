@@ -37,15 +37,10 @@ class MarcaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MarcaRequest $request)
+    public function store(Request $request)
     {
-        if (empty($request->input('descripcion'))) {
-            return response()->json([
-                'errors'=> [
-                        ['message'=>'Faltan datos necesarios para procesar el registro.']
-                    ]
-                ], 422);
-        }
+        $request->validate(Marca::createRules());
+
         $marca = Marca::create($request->all());
         
         return response()->json([ 'status' => 'ok', 'message' => 'Marca creada exitosamente!', 'data'=>$marca],201);
@@ -78,10 +73,11 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function update(MarcaRequest $request)
+    public function update(Request $request, $id)
     {
-        $marca = Marca::find($request->id);
-        // dd($request);
+        $marca = Marca::find($id);
+        // dd($id);
+
         if (empty($marca)) {
             return response()->json([
                     'message' => 'Actualizacion de marca',
@@ -89,13 +85,9 @@ class MarcaController extends Controller
             ], 404);
         }
 
-        $flag = $marca->validate($request->rules());
+        $request->validate(Marca::updateRules($id));
 
-        if ( !empty($flag) ) {
-            return $flag;
-        }
-
-        $marca->flll($request->all());
+        $marca->fill($request->all());
         $marca->save();
 
         return response()->json(['message' => 'Actualizacion de Categoria',
@@ -109,8 +101,19 @@ class MarcaController extends Controller
      * @param  \App\Models\Marca  $marca
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Marca $marca)
+    public function destroy($id)
     {
         //
+        $marca = Marca::find($id);
+        
+        if ( empty($marca) ) {
+            return response()->json(['message' => 'Detalle de la Categoria',
+            'status'=>'not found'],404);
+        } 
+        
+        $marca->delete();
+        
+		// Se devuelve código 204 No Content.
+		return response()->json([], 204);
     }
 }
