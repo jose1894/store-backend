@@ -42,11 +42,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\MarcaController;
 use App\Http\Controllers\api\v1\ModeloController;
 use App\Http\Controllers\api\v1\CategoriasController;
+use App\Http\Controllers\api\v1\TipoProductosController;
 
 Route::prefix('v1')
             ->group( function(){
                     Route::resource('marca', MarcaController::class);
                     Route::resource('modelo', ModeloController::class);
                     Route::resource('categoria',CategoriasController::class, [ 'except' => ['edit','create']]);
+                    Route::resource('tipoproductos',TipoProductosController::class, [ 'except' => ['edit','create']]);
     
             });

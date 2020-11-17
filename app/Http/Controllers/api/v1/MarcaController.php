@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MarcaRequest;
 use App\Models\Marca;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -58,11 +57,11 @@ class MarcaController extends Controller
         $marca = Marca::find($id);
         
         if ( empty($marca) ) {
-            return response()->json(['message' => 'Detalle de la Categoria',
+            return response()->json(['message' => 'Detalle de la Marca',
             'status'=>'not found'],404);
         } 
 
-        return response()->json(['message' => 'Detalle de la Categoria',
+        return response()->json(['message' => 'Detalle de la Marca',
         'status'=>'ok','data' => $marca],200);
     }
 
@@ -80,7 +79,7 @@ class MarcaController extends Controller
 
         if (empty($marca)) {
             return response()->json([
-                    'message' => 'Actualizacion de marca',
+                    'message' => 'Actualizacion de Marca',
                     'status' => 'Not found',
             ], 404);
         }
@@ -90,8 +89,11 @@ class MarcaController extends Controller
         $marca->fill($request->all());
         $marca->save();
 
-        return response()->json(['message' => 'Actualizacion de Categoria',
-        'status'=>'ok','data' => $marca],200);
+        return response()->json([
+            'message' => 'Actualizacion de Marca',
+            'status'=>'ok',
+            'data' => $marca
+        ],200);
         
     }
 
@@ -107,8 +109,10 @@ class MarcaController extends Controller
         $marca = Marca::find($id);
         
         if ( empty($marca) ) {
-            return response()->json(['message' => 'Detalle de la Categoria',
-            'status'=>'not found'],404);
+            return response()->json([
+                'message' => 'Detalle de la Marca',
+                'status'=>'not found'
+            ],404);
         } 
         
         $marca->delete();

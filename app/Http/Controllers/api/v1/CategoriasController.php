@@ -145,7 +145,6 @@ class CategoriasController extends Controller
 
 		if (!empty($productos) && sizeof($productos) >0)
 		{
-			
 			return response()->json(['errors'=>array(['code'=>409,'message'=>'Esta categoria posee productos y no puede ser eliminado.'])],409);
 		}
 

@@ -116,7 +116,7 @@ class CategoriasTest extends TestCase
     function test_Categorias_Delete()
     {        
  
-         $this->json('DELETE', 'api/v1/categoria/2', ['Content-Type' =>'application/json', 'Accept' => 'application/json'])
+         $this->json('DELETE', 'api/v1/categoria/1', ['Content-Type' =>'application/json', 'Accept' => 'application/json'])
          ->assertStatus(204);
     }
 
