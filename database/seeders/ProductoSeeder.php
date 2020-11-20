@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\UnidadMedida;
+use App\Models\Producto;
 
-class UnidadMedidaSeeder extends Seeder
+class ProductoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,6 @@ class UnidadMedidaSeeder extends Seeder
      */
     public function run()
     {
-        //
-        UnidadMedida::factory()->times(10)->create();
+        Producto::factory()->times(10)->create();
     }
 }

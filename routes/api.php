@@ -44,6 +44,7 @@ use App\Http\Controllers\api\v1\ModeloController;
 use App\Http\Controllers\api\v1\CategoriasController;
 use App\Http\Controllers\api\v1\TipoProductosController;
 use App\Http\Controllers\api\v1\UnidadMedidaController;
+use App\Http\Controllers\api\v1\ProductoController;
 
 Route::prefix('v1')
             ->group( function(){
@@ -52,5 +53,6 @@ Route::prefix('v1')
                     Route::resource('categoria',CategoriasController::class, [ 'except' => ['edit','create']]);
                     Route::resource('tipoproductos',TipoProductosController::class, [ 'except' => ['edit','create']]);
                     Route::resource('unidadmedida',UnidadMedidaController::class, [ 'except' => ['edit','create']]);
+                    Route::resource('producto',ProductoController::class, [ 'except' => ['edit','create']]);
     
             });
