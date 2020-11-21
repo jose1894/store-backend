@@ -28,9 +28,10 @@ class Producto extends Model
     }
 
     public static function updateRules($id) {
+        $producto = self::find($id);
         return [
-            'codigo'       => 'required|min:3|max:25|unique:producto,codigo'.$id,
-            'nombre'       => 'required|min:3|max:255|unique:producto,codigo,descripcion'.$id,
+            'codigo'       => 'required|min:3|max:25|unique:producto,codigo,'.$producto->id,
+            'nombre'       => 'required|min:3|max:255|unique:producto,nombre,'.$producto->nombre,
             'modelo_id'    => 'required',
             'categoria_id' => 'required',
             'undmed_id'    => 'required',

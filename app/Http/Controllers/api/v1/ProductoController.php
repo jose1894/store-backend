@@ -42,7 +42,7 @@ class ProductoController extends Controller
 
         $producto = Producto::create($request->all());
         
-        return response()->json([ 'status' => 'ok', 'message' => 'Producto creada exitosamente!', 'data'=>$producto],201);
+        return response()->json([ 'status' => 'ok', 'message' => 'Producto creado exitosamente!', 'data'=>$producto],201);
 
     }
 
@@ -57,11 +57,11 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         
         if ( empty($producto) ) {
-            return response()->json(['message' => 'Detalle de la Producto',
+            return response()->json(['message' => 'Detalle del Producto',
             'status'=>'not found'],404);
         } 
 
-        return response()->json(['message' => 'Detalle de la Producto',
+        return response()->json(['message' => 'Detalle del Producto',
         'status'=>'ok','data' => $producto],200);
     }
 
@@ -79,7 +79,7 @@ class ProductoController extends Controller
 
         if (empty($producto)) {
             return response()->json([
-                    'message' => 'Actualizacion de Producto',
+                    'message' => 'Actualizacion del Producto',
                     'status' => 'Not found',
             ], 404);
         }
@@ -90,7 +90,7 @@ class ProductoController extends Controller
         $producto->save();
 
         return response()->json([
-            'message' => 'Actualizacion de Producto',
+            'message' => 'Actualizacion del Producto',
             'status'=>'ok',
             'data' => $producto
         ],200);
@@ -110,7 +110,7 @@ class ProductoController extends Controller
         
         if ( empty($producto) ) {
             return response()->json([
-                'message' => 'Detalle de la Producto',
+                'message' => 'Detalle del Producto',
                 'status'=>'not found'
             ],404);
         } 

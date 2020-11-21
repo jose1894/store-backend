@@ -121,7 +121,7 @@ class MarcaTest extends TestCase
     // /** A test for CategoriasDelete      */
     function test_Marca_Delete()
     {         
-         $this->json('DELETE', 'api/v1/marca/1', ['Content-Type' =>'application/json', 'Accept' => 'application/json'])
+         $this->json('DELETE', 'api/v1/marca/5', ['Content-Type' =>'application/json', 'Accept' => 'application/json'])
          ->assertStatus(204);
     }
 
